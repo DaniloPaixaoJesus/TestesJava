@@ -2,6 +2,7 @@ package com.danilo.app.bo;
 
 import com.danilo.app.enumeration.ComandoEnum;
 import com.danilo.app.enumeration.DirecaoEnum;
+import com.danilo.app.exception.SubmarinoInvalidoException;
 
 public class Submarino {
 
@@ -10,29 +11,33 @@ public class Submarino {
 	long eixoZ;
 	DirecaoEnum direcao;
 
-	Submarino() {
+	public Submarino() {
 		this.eixoX = 0;
 		this.eixoY = 0;
 		this.eixoZ = 0;
 		this.direcao = DirecaoEnum.NORTE;
 	}
-	
-	public String executar(String comando){
-		validarLinhaComando(comando);
+
+	public String executar(String comando) throws SubmarinoInvalidoException {
+		if(comando == null){
+			throw new SubmarinoInvalidoException("comando nao deve ser nulo");
+		}
 		char[] arrString = comando.toCharArray();
 		for (int i = 0; i < arrString.length; i++) {
-			ComandoEnum comandoEnum = ComandoEnum.getComandoEnum(arrString[i]);
+			char comandotmp = arrString[i];
+			validarComando(comandotmp);			
+			ComandoEnum comandoEnum = ComandoEnum.getComandoEnum(comandotmp);
 			executarComando(comandoEnum);
 		}
-		return "resultado do comando";
+		return eixoX + " " + eixoY + " " + eixoZ + " " + direcao;
 	}
 
-	private void validarLinhaComando(String comando) {
-		// verificar se nulo
-		// verificar se diferente de vazio
-		// verificar se existe algo diferente de L-R-M-U-D
+	private void validarComando(char comando) throws SubmarinoInvalidoException {
+		ComandoEnum comandoEnum = ComandoEnum.getComandoEnum(comando);
+		if (comandoEnum == null){
+			throw new SubmarinoInvalidoException("comando invalido");
+		}
 	}
-
 
 	private void executarComando(ComandoEnum comando) {
 		if (comando.isDirecional()) {
@@ -44,8 +49,10 @@ public class Submarino {
 				comandoL();
 				break;
 			case U:
+				comandoU();
 				break;
 			case D:
+				comandoD();
 				break;
 			default:
 				break;
@@ -81,7 +88,6 @@ public class Submarino {
 			break;
 		}
 	}
-	
 
 	private void comandoR() {
 		switch (direcao) {
