@@ -72,18 +72,18 @@ public class Submarino {
 			break;
 		case LESTE:
 			this.eixoX++;
-			this.eixoY++;
+			//this.eixoY++;
 			break;
 		case OESTE:
-			this.eixoX++;
-			this.eixoY--;
+			this.eixoX--;
+			//this.eixoY--;
 			break;
-		case CIMA:
+		/*case CIMA:
 			this.eixoZ++;
 			break;
 		case BAIXO:
 			this.eixoZ--;
-			break;
+			break;*/
 		default:
 			break;
 		}
@@ -128,11 +128,13 @@ public class Submarino {
 	}
 
 	private void comandoU() {
-		this.direcao = DirecaoEnum.CIMA;
+		//this.direcao = DirecaoEnum.CIMA;
+		this.eixoZ++;
 	}
 
 	private void comandoD() {
-		this.direcao = DirecaoEnum.BAIXO;
+		//this.direcao = DirecaoEnum.BAIXO;
+		this.eixoZ--;
 	}
 
 }

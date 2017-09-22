@@ -11,10 +11,19 @@ public class App
 {
     public static void main( String[] args ) throws SubmarinoInvalidoException
     {
-        Submarino submarino1 = new Submarino();
-        Submarino submarino2 = new Submarino();
         
-        submarino1.executar("RRMLLMUMM");
-        submarino1.executar("SRMLRMDM");
+    	String retornoExecutado = null;
+    	String comando = null;
+    			
+    	Submarino submarino1 = new Submarino();        
+        comando = "RRMLLMUMM";
+        retornoExecutado = submarino1.executar(comando);
+		System.out.println(retornoExecutado);
+		
+        comando = "RMMLMMMDDLL";
+        Submarino submarino2 = new Submarino();
+		retornoExecutado = submarino2.executar(comando);
+		System.out.println(retornoExecutado);
+		
     }
 }
